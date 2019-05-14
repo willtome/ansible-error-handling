@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: return false
+    command: /usr/bin/false
+    register: bin_false
+    failed_when: bin_false.rc != 1
+

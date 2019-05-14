@@ -1,0 +1,6 @@
+---
+- name: Deploy Application
+  assert:
+    that: success is defined
+    success_msg: The application was deployed
+    fail_msg: The application failed to deploy

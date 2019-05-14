@@ -1,0 +1,23 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: check for port 80
+    wait_for:
+      port: 80
+      timeout: 5
+    ignore_errors: yes
+    register: check_http
+
+  - name: check for port 443
+    wait_for:
+      port: 443
+      timeout: 5
+    ignore_errors: yes
+    register: check_https
+
+  - fail:
+      msg: "Port 80 or 443 are not open and listening"
+    when: check_https.failed and check_http.failed
+

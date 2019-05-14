@@ -1,0 +1,19 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+  - block:
+    - include_role:
+        name: "web_app"
+        tasks_from: "deploy"
+
+    rescue:
+    - include_role:
+        name: "web_app"
+        tasks_from: "rollback"
+
+    - name: Failure detected
+      fail:
+        msg: "Application deploy failed."
+

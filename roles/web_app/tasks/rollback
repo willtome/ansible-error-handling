@@ -1,0 +1,4 @@
+---
+- name: Rollback Application
+  debug:
+    msg: Rollback was successful

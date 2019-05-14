@@ -1,0 +1,18 @@
+---
+- hosts: node1
+  gather_facts: no
+
+  tasks:
+  - name: check for port 80
+    wait_for:
+      port: 80
+      timeout: 5
+    ignore_errors: yes
+    register: check_http
+
+  - assert:
+      that:
+        - check_http.failed == false
+      success_msg: "Port 80 is open and listening!!"
+      fail_msg: "Port 80 IS NOT open and listening"
+
